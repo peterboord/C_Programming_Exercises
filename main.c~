@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+int main ()
+{
+    FILE *fp;
+    int c;
+    char *filename;
+    int histAscii[256];
+    void initArray(int *a, int arraySize);
+    void printHist(int *a, int arraySize);
+
+    int arraySize = sizeof(histAscii)/sizeof(histAscii[0]);
+    printf("No elements = %d\n", arraySize);
+
+    initArray(histAscii, arraySize);
+
+    filename = "file.txt";
+    fp = fopen(filename,"r");
+    while(1)
+    {
+        c = fgetc(fp);
+        if( feof(fp) )
+        {
+            break ;
+        }
+        histAscii[c] += 1;
+    }
+    fclose(fp);
+
+    printHist(histAscii, arraySize);
+
+    return(0);
+}
+
+
+
+void initArray(int *a, int arraySize) {
+    int i;
+    for(i=0; i<arraySize; i++) {
+        a[i] = 0;
+    }
+}
+
+void printHist(int *a, int arraySize) {
+    int i;
+    printf("Code\tNo. Codes\n");
+    for(i=0; i<arraySize; i++) {
+        printf("%c\t%d\n", a[i], a[i]);
+    }
+}
